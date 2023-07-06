@@ -5,6 +5,10 @@
 
 html {
     background-image: linear-gradient(to right, #f41365, #e28a3d);
-    height: 100vh;
-    width: 100vw;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
 }
