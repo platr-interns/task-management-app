@@ -6,12 +6,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
+import { NewListComponent } from './pages/new-list/new-list.component';
 // Import other modules and components
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    NewListComponent,
 
   ],
   imports: [
