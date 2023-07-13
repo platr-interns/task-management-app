@@ -13,7 +13,6 @@ import { NewListComponent } from './pages/new-list/new-list.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    NewListComponent,
 
   ],
   imports: [
