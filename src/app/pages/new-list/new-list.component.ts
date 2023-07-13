@@ -14,12 +14,5 @@ export class NewListComponent implements OnInit {
   createNewProject(title: string) {
     this.projectService.addProject(title);
     this.router.navigate(['']);
-
-    // const newProject = { name: title }
-    // const projects = [newProject];
-    // console.log(projects);
-
-    // this.router.navigate([''])
-    // clearInputField();
   };
 }
