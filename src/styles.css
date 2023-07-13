@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    background-image: linear-gradient(to right, #f41365, #e28a3d);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
