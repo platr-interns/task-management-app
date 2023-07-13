@@ -7,7 +7,7 @@ import { Project } from '../models/project.model';
 export class ProjectService {
     private project: Project[] = [];
 
-    addProject(name: string) {
+    public addProject(name: string): void {
         const id = this.project.length + 1;
         const project = new Project(id, name);
         this.project.push(project);
