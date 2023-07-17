@@ -9,7 +9,15 @@ import { NewListComponent } from './pages/new-list/new-list.component';
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'new-list', component: NewListComponent },
+import { LoginComponent } from './pages/home/login/login.component';
+import { SignupComponent } from './pages/home/signup/signup.component';
+
+const routes: Routes = [
+    { path: '', component: HomeComponent },
+    {path: 'login', component: LoginComponent},
+    {path: 'signup', component: SignupComponent },
     { path: '**', redirectTo: '' } // Redirect to home page for unknown routes
+   
 ];
 
 @NgModule({
