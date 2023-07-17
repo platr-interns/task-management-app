@@ -1,0 +1,15 @@
+<div class="centered-content">
+    <div class="w-full min-h-[200px] min-w-[500px] bg-white p-6 border-4 rounded-md">
+        <h1 class="">
+            Create a new project
+        </h1>
+        <input #projectTitle type="text" placeholder="Create new project"
+            class="w-full  bg-gray-100 text-lg active:border-blue-700 hover:border-blue-500 hover:border-2 rounded-md px-2 py-1">
+
+        <div class="flex items-end justify-end space-x-2 mt-5">
+            <button class="rounded-md text-lg px-2 py-1 border" routerLink="/">Cancel</button>
+            <button class="bg-blue-500 text-white rounded-md text-lg px-2 py-1"
+                (click)="createNewProject(projectTitle.value)">Create</button>
+        </div>
+    </div>
+</div>

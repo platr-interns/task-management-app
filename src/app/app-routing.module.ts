@@ -4,6 +4,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './pages/home/home.component';
+import { NewListComponent } from './pages/new-list/new-list.component';
+
+const routes: Routes = [
+    { path: '', component: HomeComponent },
+    { path: 'new-list', component: NewListComponent },
 import { LoginComponent } from './pages/home/login/login.component';
 import { SignupComponent } from './pages/home/signup/signup.component';
 
