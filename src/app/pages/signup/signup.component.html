@@ -1,32 +1,36 @@
-<p>login works!</p>
+<p>signup works!</p>
 <div style="background-color: rgb(248, 202, 209);" class="container" >
     <h1 class="text-centre" style="color: rgb(250, 140, 158);">
       Platr
      </h1>
     <h2>
-      Welcome Back
+      Create Account
     </h2>
     <h5>
-      Login to continue
+      Create a new account
     </h5 >
     <div flex-col justify-end>
     <form>
-      
+      <P>NAME</P>
+         <input type="name" name="name" placeholder="user name"><br/>
       <p>EMAIL</p>
       <input type="email" name="email" placeholder=".......@gmail.com"><br/>
-      
+      <p>PHONE</p>
+      <input type="number" name="number" placeholder="phone number"><br/>
       <p>PASSWORD</p> 
       <input type="password" name="password" placeholder="******">
     
     </form> </div>
     <br/>
     <b>
-      <button length="50px" style="background-color: pink;" >
-        LOGIN
+     <a routerlink="''">
+       <button length="50px" style="background-color: pink;" >
+        CREATE ACCOUNT
       </button>
+    </a>
     </b>
     <h6>
-      Don't have account? <a href="" create a new account
-       
+      Already have an account?
+       <a routerlink="login" >Login </a>
     </h6>
     </div>
