@@ -1,11 +1,9 @@
-// app.module.ts
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
+import { NewListComponent } from './pages/new-list/new-list.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 // Import other modules and components
@@ -14,9 +12,9 @@ import { LoginComponent } from './login/login.component';
   declarations: [
     AppComponent,
     HomeComponent,
+    NewListComponent,
     SignupComponent,
     LoginComponent,
-
   ],
   imports: [
     BrowserModule,
