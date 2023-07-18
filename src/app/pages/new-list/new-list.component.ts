@@ -5,7 +5,7 @@ import { ProjectService } from 'src/services/project.service';
 @Component({
   selector: 'app-new-list',
   templateUrl: './new-list.component.html',
-  styleUrls: ['./new-list.component.css']
+  styleUrls: ['./new-list.component.scss']
 })
 export class NewListComponent implements OnInit {
   constructor(private router: Router, private projectService: ProjectService) { }
