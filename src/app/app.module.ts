@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NewListComponent } from './pages/new-list/new-list.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { LoginComponent } from './pages/home/login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 // Import other modules and components
 
 @NgModule({
