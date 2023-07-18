@@ -5,14 +5,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './pages/home/home.component';
 import { NewListComponent } from './pages/new-list/new-list.component';
-import { LoginComponent } from './pages/home/login/login.component';
-import { SignupComponent } from './pages/home/signup/signup.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'new-list', component: NewListComponent },
-    { path: 'login', component: LoginComponent },
+    { path: '', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
     { path: '**', redirectTo: '' } // Redirect to home page for unknown routes  
 ];
