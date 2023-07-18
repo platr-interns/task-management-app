@@ -8,7 +8,6 @@ import { NewListComponent } from './pages/new-list/new-list.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 
-
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'new-list', component: NewListComponent },
