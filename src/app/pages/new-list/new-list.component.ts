@@ -13,6 +13,6 @@ export class NewListComponent implements OnInit {
 
   createNewProject(title: string) {
     this.projectService.addProject(title);
-    this.router.navigate(['']);
+    this.router.navigate(['/home']);
   };
 }

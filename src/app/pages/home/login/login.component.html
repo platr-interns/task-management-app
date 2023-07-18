@@ -21,12 +21,11 @@
   </div>
   <br />
   <b>
-    <a routerlink="" > <button length="50px" style="background-color: pink;" >
-        LOGIN
-      </button>
-    </a>
+    <button length="50px" style="background-color: pink;" routerLink="/home">
+      LOGIN
+    </button>
   </b>
   <h6>
-    Don't have account?<a routerLink="Signup">create a new account</a>
+    Don't have account?<a (click)="navigateTo()">create a new account</a>
   </h6>
 </div>
