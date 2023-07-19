@@ -1,3 +1,14 @@
+<div style="background-color: rgb(248, 202, 209);" class="container">
+  <h1 class="text-centre" style="color: rgb(250, 140, 158);">
+    Platr
+  </h1>
+  <h2>
+    Welcome
+  </h2>
+  <h5>
+    Login to continue
+  </h5>
+  <div flex-col justify-end>
 <div class="centered-content">
   <div class="flex w-full h-full max-h-96 justify-center">
 <div style="background-color: rgb(248, 202, 209);" class="container" >
@@ -23,12 +34,13 @@
   </div>
   <br />
   <b>
-    <a routerlink="" > <button length="50px" style="background-color: pink;" >
-        LOGIN
-      </button></a>
-    </b>
-    <h6>
-      Don't have account? <a routerLink="Signup">create a new account</a>
-       
-    </h6>
+    <button length="50px" style="background-color: pink;" routerLink="/home">
+      LOGIN
+    </button>
+  </b>
+  <h6>
+    Don't have account?<a (click)="navigateTo()">create a new account</a>
+  </h6>
+</div>
     </div></div></div>
+
