@@ -1,0 +1,102 @@
+.home {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    max-height: 24rem;
+    justify-content: center;
+}
+
+.project-container {
+    background-color: #fff;
+    width: 16rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+    position: relative;
+}
+
+.project {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.project-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+    width: 100%;
+    color: #5f5f5f;
+    background-color: #FFC0CB;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+        background-color: #FFB6C1;
+        color: #FF69B4;
+    }
+
+    &:active {
+        color: #FF3333;
+    }
+}
+
+.button {
+    background-color: #FF69B4;
+    color: #fff;
+    position: absolute;
+    bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #FF6C8C;
+    }
+}
+
+.task-container {
+    background-color: #FF69B4;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 2rem 0;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    width: 100%;
+
+
+}
+
+.title {
+    color: #000;
+    font-weight: 800;
+    text-align: center;
+}
+
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+
+
+}
+
+.task-status {
+    background-color: #fff;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.25rem 0.5rem 0.25rem;
+}
+
+.status {
+    font-weight: 700;
+    text-align: center;
+}
