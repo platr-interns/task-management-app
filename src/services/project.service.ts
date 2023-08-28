@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../models/project.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
-export class ProjectService {
-    private project: Project[] = [];
+export class ApiService {
+    private baseUrl = 'https://jsonplaceholder.typicode.com';
 
-    public addProject(name: string): void {
-        const id = this.project.length + 1;
-        const project = new Project(id, name);
-        this.project.push(project);
+    constructor(private http: HttpClient) { }
+
+    getProjects() {
+        return this.http.get(`${this.baseUrl}/users/1/posts`);
     }
 
-    getProject() {
-        return this.project;
+    getTasks() {
+        return this.http.get(`${this.baseUrl}/users/1/todos`);
     }
 }
