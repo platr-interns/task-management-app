@@ -1,24 +1,72 @@
-input{
-    padding: 10px;
-    text-size-adjust: 10px;
-    width: 250px;
-    height: 10px;
+$primary-color: rgb(250, 140, 158);
+$secondary-color: pink;
+
+.centered-content {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+
+.container {
+background-color: rgb(248, 202, 209);
+padding: 40px;
+text-align: center;
+border-radius: 8px;
+width: 100%;
+max-width: 400px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+#logo {
+  color: $primary-color;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+h5 {
+  margin-top: 5px;
+  color: $primary-color;
+}
+
+form {
+  margin-top: 20px;
+  
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 4px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+}
+
+.login-button {
+  background-color: $secondary-color;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+h6 {
+  margin-top: 20px;
+  
+  a {
+    color: $primary-color;
+    text-decoration: none;
     
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
-*{
-    margin: 0%;
-}
-
-p{
-    font-size: 18px;
-}
-.cotainer{
-    height: 600px;
-}
-*{
-    text-align: center;
-}
-
-*{
-    line-height:normal;
 }

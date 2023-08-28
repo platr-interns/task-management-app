@@ -1,34 +1,73 @@
 <div class="centered-content">
   <div class="flex w-full h-full max-h-96 justify-center">
-    <div style="background-color: rgb(248, 202, 209);" class="container">
-      <div style="background-color: rgb(248, 202, 209);" class="container">
-        <h1 class="text-centre" style="color: rgb(250, 140, 158);">
-          Platr
-        </h1>
-        <h2>
-          Welcome
-        </h2>
-        <h5>
-          Login to continue
-        </h5>
+    <div class="container">
+      <h1 class="text-center" style="color: rgb(250, 140, 158);">
+        Platr
+      </h1>
+      <h2>
+        Welcome Back
+      </h2>
+      <h5>
+        Login to Continue
+      </h5>
+      <div class="flex-col justify-end">
+        <form>
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" name="email" placeholder=" "><br/>
 
-        <h1 class="text-centre" style="color: rgb(250, 140, 158);">
-          Platr
-        </h1>
-        <h2>
-          Welcome Back
-        </h2>
-        <h5>
-          Login to continue
-        </h5>
-        <div flex-col justify-end>
-          <form>
+          <label for="password">PASSWORD</label>
+          <input type="password" id="password" name="password" placeholder="******">
+        </form>
+      </div>
 
-            <p>EMAIL</p>
-            <input type="email" name="email" placeholder=" "><br />
+      <br />
+      <b>
+        <button class="login-button" routerLink="/home">
+          LOGIN
+        </button>
+      </b>
+      <h6>
+        Don't have an account? <a href="signup" onclick="navigateTo()">Create a new account</a>
+      </h6>
+    </div>
+  </div>
+</div>
 
-            <p>PASSWORD</p>
-            <input type="password" name="password" placeholder="******">
+
+<div class="centered-content">
+  <div class="flex w-full h-full max-h-96 justify-center">
+    <div class="container">
+      <h1 class="text-center" id="logo">
+        Platr
+      </h1>
+      <h2>
+        Welcome Back
+      </h2>
+      <h5>
+        Login to Continue
+      </h5>
+      <div class="flex-col justify-end">
+        <form>
+          <label for="email">EMAIL</label>
+          <input type="email" id="email" name="email" placeholder=" "><br/>
+
+          <label for="password">PASSWORD</label>
+          <input type="password" id="password" name="password" placeholder="******">
+        </form>
+      </div>
+
+      <br />
+      <b>
+        <button class="login-button" routerLink="/home">
+          LOGIN
+        </button>
+      </b>
+      <h6>
+        Don't have an account? <a (click)="navigateTo()">Create a new account</a>
+      </h6>
+    </div>
+  </div>
+</div>
 
           </form>
         </div>
