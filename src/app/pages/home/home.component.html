@@ -3,29 +3,63 @@
         <div class="project-container">
             <h1 class="title">Projects</h1>
             <div class="project">
-                <a *ngFor="let project of projects" class="project-link">
-                    {{project.name}}
-                </a>
+                <div class="project-status p-4">
+                    <ul class="project-list gap-4">
+                        <li *ngFor="let bucket of projects" class="project-link" (mouseenter)="bucket.hovered = true"
+                            (mouseleave)="bucket.hovered = false">
+                            <span *ngIf="!bucket.editable">{{ bucket.title }}</span>
+                            <input *ngIf="bucket.editable" [(ngModel)]="editableBucketTitle"
+                                (blur)="bucket.editable = false; onBucketTitleBlur(bucket)">
+                            <i class="pen-icon fas fa-pencil-alt" (click)="onEditBucketTitle(bucket)"
+                                *ngIf="!bucket.editable"></i>
+                        </li>
+                    </ul>
+                </div>
 
                 <button class="button" routerLink="/new-list">
-                    +New Project
+                    + New Project
                 </button>
             </div>
+
         </div>
         <div class="task-container">
-            <h1 class="title">Task</h1>
+            <h1 class="title">TASK VIEW</h1>
             <div class="task-grid">
                 <div class="task-status">
-                    <h4 class="status">Todo Task</h4>
-                    <p>Task i need to do</p>
+                    <h4 class="status">
+                        Tasks
+                        <i class="add-icon fas fa-plus-circle" (click)="addNewTask()"></i>
+                    </h4>
+                    <ul class="task-list">
+                        <li *ngFor="let task of tasks" class="task-link" (mouseenter)="task.hovered = true"
+                            (mouseleave)="task.hovered = false">
+                            <span *ngIf="!task.editable">{{ task.title }}</span>
+                            <input *ngIf="task.editable" [(ngModel)]="task.title" (blur)="task.editable = false">
+                            <i class="pen-icon fas fa-pencil-alt" (click)="task.editable = true"
+                                *ngIf="!task.editable"></i>
+                        </li>
+                    </ul>
                 </div>
                 <div class="task-status">
-                    <h4 class="status">Ongoing Task</h4>
-                    <p>Currently Ongoing.</p>
+                    <h4 class="status">Ongoing</h4>
+                    <ul class="task-list">
+                        <li *ngFor="let task of completedTasks" class="task-link" (mouseenter)="task.hovered = true"
+                            (mouseleave)="task.hovered = false">
+                            <span>{{ task.title }}</span>
+                            <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i>
+                        </li>
+                    </ul>
                 </div>
                 <div class="task-status">
-                    <h4 class="status">Completed Task</h4>
-                    <p>Task completed.</p>
+                    <h4 class="status">Completed</h4>
+                    <ul class="task-list">
+                        <li *ngFor="let task of uncompletedTasks" class="task-link" (mouseenter)="task.hovered = true"
+                            (mouseleave)="task.hovered = false">
+                            <span>{{ task.title }}</span>
+                            <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </div>

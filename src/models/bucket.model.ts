@@ -1,4 +1,4 @@
-export interface Project {
+export interface Bucket {
     userId: number;
     id: number;
     title: string;
