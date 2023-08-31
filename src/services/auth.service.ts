@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
-  private baseUrl = 'mongodb+srv://admin:admin@taskmanagementcluster.z1oywsl.mongodb.net/?retryWrites=true&w=majority';
+export class AuthService {
+  private baseUrl = 'localhost:3050';
 
   constructor(private http: HttpClient) { }
 
