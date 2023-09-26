@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,33 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(credentials: { Email: string, password: string }) {
-    const url = `${this.baseUrl}/login`;
-    return this.http.post(url, credentials);
+  public async login(form: FormGroup) {
+    const url = `${this.baseUrl}/auth/Login`;
+    const login = {
+      email: form.controls["email"].value,
+      password: form.controls["password"].value,
+  }
+    
+    return this.http.post(url, login).subscribe(
+      (Response)=>{console.log(Response);
+      },
+      (error)=>{console.error(error);}
+    );
   }
 
-  signup(user: { name: string, Email: string, phone: number, password: string }) {
-    const url = `${this.baseUrl}/register`;
-    return this.http.post(url, user);
+  public async signup(form: FormGroup) {
+    const url = `${this.baseUrl}/auth/signup`;
+    const user = {
+      email: form.controls["email"].value,
+      name: form.controls["name"].value,
+      password: form.controls["password"].value,
+  }
+    
+    return this.http.post(url, user).subscribe(
+      (Response)=>{console.log(Response);
+      },
+      (error)=>{console.error(error);}
+    );
   }
 
 

@@ -8,24 +8,21 @@
         Create a New Account
       </h5>
       <div class="flex-col justify-end">
-        <form>
+        <form [formGroup]="form">
           <label for="name">NAME</label>
-          <input type="text" id="name" name="name" placeholder="Username"><br/>
+          <input type="text" id="name" name="name" placeholder="Username" [formControlName]="'name'"><br/>
           
           <label for="email">EMAIL</label>
-          <input type="email" id="email" name="email" placeholder=".......@gmail.com"><br/>
-          
-          <label for="phone">PHONE</label>
-          <input type="tel" id="phone" name="phone" placeholder="Phone number"><br/>
+          <input type="email" id="email" name="email" placeholder=".......@gmail.com" [formControlName]="'email'"><br/>
           
           <label for="password">PASSWORD</label>
-          <input type="password" id="password" name="password" placeholder="******">
+          <input type="password" id="password" name="password" placeholder="******" [formControlName]="'password'">
         </form>
       </div>
       
       <br/>
       <a routerLink=" ">
-      <button class="create-account-button">
+      <button class="create-account-button" (click)="signup()">
         CREATE ACCOUNT
       </button>
       </a>
