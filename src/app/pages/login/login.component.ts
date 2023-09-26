@@ -24,10 +24,9 @@ export class LoginComponent {
   }
     public login(): void {
       this.authService.login(this.form)
-
-  navigateTo() {
-    this.router.navigate(['/signup']);
+      
+        this.router.navigate(['/signup']);
   }
 
 }
-}
+
