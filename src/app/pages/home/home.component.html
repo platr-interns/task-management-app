@@ -7,12 +7,24 @@
                     <ul class="project-list gap-4">
                         <li *ngFor="let bucket of buckets" class="project-link" (mouseenter)="bucket.hovered = true"
                             (mouseleave)="bucket.hovered = false" [routerLink]="['/bucket', bucket._id]">
+
                             <span *ngIf="!bucket.editable">{{ bucket.name }}</span>
+
                             <input *ngIf="bucket.editable" [(ngModel)]="editableBucketTitle"
-                                (blur)="bucket.editable = false; onBucketTitleBlur(bucket)">
+                                (blur)="onSaveBucketTitle(bucket); onBucketTitleBlur(bucket)"
+                                (keyup.enter)="onSaveBucketTitle(bucket)">
+
                             <i class="pen-icon fas fa-pencil-alt" (click)="onEditBucketTitle(bucket)"
-                                *ngIf="!bucket.editable"></i>
+                                *ngIf="!bucket.editable && !bucket.saveMode"></i>
+
+                            <i class="delete-icon fas fa-trash-alt" (click)="onDeleteBucket(bucket)"
+                                *ngIf="bucket.hovered && !bucket.editable && !bucket.saveMode"></i>
+
+                            <!-- <i class="save-icon fas fa-save" (click)="onSaveBucketTitle(bucket)"
+                                *ngIf="bucket.editable && !bucket.saveMode"></i> -->
+
                         </li>
+
                     </ul>
                 </div>
 

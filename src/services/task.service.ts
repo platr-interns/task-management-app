@@ -25,22 +25,22 @@ export class TaskService {
     return this.webReqService.post('bucket/add', bucketInfo);
   }
 
-  updateBucket(id: string, title: string) {
+  updateBucket(payload: { id: string, name: string }) {
     // We want to send a web request to update a bucket
-    return this.webReqService.patch(`bucket/${id}`, { title });
+    return this.webReqService.patch(`bucket/update/${payload.id}`, payload);
   }
   deleteBucket(id: string) {
     // We want to send a web request to delete a bucket
-    return this.webReqService.delete(`bucket/${id}`);
+    return this.webReqService.delete(`bucket/delete/${id}`);
   }
 
   getTask(bucketid: string): Observable<ApiResponse<Bucket>> {
     // We want to send a web request to get all the task in a bucket
     return this.webReqService.get<ApiResponse<Bucket>>(`bucket/${bucketid}/tasks`);
   }
-  createTask(title: string) {
+  createTask(taskInfo: { name: string },) {
     // We want to send a web request to get all the task in a bucket
-    return this.webReqService.post(`task`, { title });
+    return this.webReqService.post(`task/add`, { taskInfo });
   }
   updateTask(id: string, title: string) {
     // We want to send a web request to get all the task in a bucket

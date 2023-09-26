@@ -175,6 +175,14 @@
             .pen-icon {
                 visibility: visible;
             }
+
+            .delete-icon {
+                visibility: visible;
+            }
+
+            .save-icon {
+                visibility: visible;
+            }
         }
 
         .pen-icon {
@@ -183,11 +191,42 @@
             color: gray;
             visibility: hidden;
             transition: visibility 0.3s;
+            cursor: pointer;
 
             .pen-icon-text {
                 display: inline-block;
                 font-weight: bold;
                 margin-left: 3px;
+            }
+        }
+
+        .delete-icon {
+            margin-left: auto;
+            font-size: 1rem;
+            color: gray;
+            visibility: hidden;
+            cursor: pointer;
+            transition: visibility 0.3s;
+
+            .delete-icon-text {
+                display: inline-block;
+                font-weight: bold;
+                margin-left: 3px;
+            }
+        }
+
+        .save-icon {
+            margin-left: auto;
+            font-size: 1rem;
+            color: gray;
+            visibility: hidden;
+            cursor: pointer;
+            transition: visibility 0.3s;
+
+            .save-icon-text {
+                display: inline-block;
+                font-weight: bold;
+                margin-left: 5px;
             }
         }
     }

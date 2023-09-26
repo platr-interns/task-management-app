@@ -24,6 +24,7 @@ export class NewListComponent implements OnInit {
       this.taskService.createBucket(bucketInfo).subscribe({
         next: (bucketData) => {
           console.log("sucess" + bucketData)
+          this.router.navigate(['/home']);
         },
         error: (error: HttpErrorResponse) => {
           console.error("Error creating bucket: ", error)
@@ -32,3 +33,4 @@ export class NewListComponent implements OnInit {
     }
   }
 }
+
