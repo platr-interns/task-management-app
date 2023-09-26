@@ -5,14 +5,26 @@
             <div class="project">
                 <div class="project-status p-4">
                     <ul class="project-list gap-4">
-                        <li *ngFor="let bucket of projects" class="project-link" (mouseenter)="bucket.hovered = true"
-                            (mouseleave)="bucket.hovered = false">
-                            <span *ngIf="!bucket.editable">{{ bucket.title }}</span>
+                        <li *ngFor="let bucket of buckets" class="project-link" (mouseenter)="bucket.hovered = true"
+                            (mouseleave)="bucket.hovered = false" [routerLink]="['/bucket', bucket._id]">
+
+                            <span *ngIf="!bucket.editable">{{ bucket.name }}</span>
+
                             <input *ngIf="bucket.editable" [(ngModel)]="editableBucketTitle"
-                                (blur)="bucket.editable = false; onBucketTitleBlur(bucket)">
+                                (blur)="onSaveBucketTitle(bucket); onBucketTitleBlur(bucket)"
+                                (keyup.enter)="onSaveBucketTitle(bucket)">
+
                             <i class="pen-icon fas fa-pencil-alt" (click)="onEditBucketTitle(bucket)"
-                                *ngIf="!bucket.editable"></i>
+                                *ngIf="!bucket.editable && !bucket.saveMode"></i>
+
+                            <i class="delete-icon fas fa-trash-alt" (click)="onDeleteBucket(bucket)"
+                                *ngIf="bucket.hovered && !bucket.editable && !bucket.saveMode"></i>
+
+                            <!-- <i class="save-icon fas fa-save" (click)="onSaveBucketTitle(bucket)"
+                                *ngIf="bucket.editable && !bucket.saveMode"></i> -->
+
                         </li>
+
                     </ul>
                 </div>
 
@@ -33,8 +45,8 @@
                     <ul class="task-list">
                         <li *ngFor="let task of tasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false">
-                            <span *ngIf="!task.editable">{{ task.title }}</span>
-                            <input *ngIf="task.editable" [(ngModel)]="task.title" (blur)="task.editable = false">
+                            <span *ngIf="!task.editable">{{ task.name }}</span>
+                            <input *ngIf="task.editable" [(ngModel)]="task.name" (blur)="task.editable = false">
                             <i class="pen-icon fas fa-pencil-alt" (click)="task.editable = true"
                                 *ngIf="!task.editable"></i>
                         </li>
@@ -45,7 +57,7 @@
                     <ul class="task-list">
                         <li *ngFor="let task of completedTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false">
-                            <span>{{ task.title }}</span>
+                            <span>{{ task.name }}</span>
                             <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i>
                         </li>
                     </ul>
@@ -55,7 +67,7 @@
                     <ul class="task-list">
                         <li *ngFor="let task of uncompletedTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false">
-                            <span>{{ task.title }}</span>
+                            <span>{{ task.name }}</span>
                             <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i>
                         </li>
                     </ul>

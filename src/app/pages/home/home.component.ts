@@ -1,99 +1,86 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Bucket } from 'src/models/bucket.model';
-import { Task } from 'src/models/task.model';
-import { Project } from 'src/models/project.model';
-import { ApiService } from 'src/services/project.service';
-// import { TaskService } from 'src/services/task.service';
+// import { Bucket } from 'src/models/bucket.model';
+// import { Task } from 'src/models/task.model';
+import { ApiResponse, Bucket, Task } from 'src/models/apiResponse.model';
+import { TaskService } from 'src/services/task.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   buckets: Bucket[] = [];
-  projects: Project[] = [];
   editableBucketTitle: string = '';
   isEditingBucket: boolean = false;
   tasks: Task[] = [];
   completedTasks: Task[] = [];
   uncompletedTasks: Task[] = [];
+  selectedBucket?: string;
 
-  constructor(private apiService: ApiService) { }
-
-  // constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    // this.taskService.getBuckets().subscribe({
-    //   next: (bucketsData: any) => {
-    //     this.buckets = bucketsData;
-    //   },
-    //   error: (error: HttpErrorResponse) => {
-    //     console.error("Error fetching projects: ", error)
-    //   },
+    this.route.params.subscribe(
+      (params: Params) => {
+        // console.log(typeof (params))
+        console.log(params['id'])
+        if (params['id']) {
+          this.selectedBucket = params['id'];
+          this.taskService.getTask(params['id']).subscribe({
+            next: (taskData: ApiResponse<Bucket>) => {
+              const task = taskData.data[0].tasks;
+              this.tasks = task;
+            },
+            error: (error: HttpErrorResponse) => {
+              console.error("Error fetching tasks: ", error)
+            }
+          })
+        }
+      }
+    )
 
-    // });
-
-    // this.taskService.getTask().subscribe({
-    //   next: (taskData: any) => {
-    //     this.tasks = taskData;
-    //   },
-    //   error: (error: HttpErrorResponse) => {
-    //     console.error("Error fetching tasks: ", error)
-    //   },
-    // });
-
-
-    this.apiService.getProjects().subscribe({
-      next: (projectData: any) => {
-        this.projects = projectData;
+    this.taskService.getBuckets().subscribe({
+      next: (response: ApiResponse<Bucket>) => {
+        this.buckets = response.data;
+        console.log(this.buckets)
       },
       error: (error: HttpErrorResponse) => {
-        console.error("Error fetching projects:", error)
+        console.error("Error fetching buckets: ", error)
       },
+
     });
-
-    this.apiService.getTasks().subscribe({
-      next: (taskData: any) => {
-        this.tasks = taskData;
-        this.completedTasks = taskData.filter((task: any) => task.completed);
-        this.uncompletedTasks = taskData.filter((task: any) => !task.completed);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error("Error fetching tasks:", error);
-      },
-    })
 
   }
 
   addNewTask() {
     const newTask: Task = {
-      title: "New Task",
+      status: 'none',
+      name: "New Task",
       hovered: false,
       editable: true,
       userId: 0,
-      id: 0,
-      completed: false
+      _id: '1',
     };
     this.uncompletedTasks.push(newTask); // Assuming you want to add new tasks to the uncompletedTasks array
   }
 
-  // ...
-
   onEditBucketTitle(bucket: Bucket) {
     // Set the editableBucketTitle to the current bucket title
-    this.editableBucketTitle = bucket.title;
+    this.editableBucketTitle = bucket.name;
     // Set isEditingBucket to true to indicate that editing is in progress
     this.isEditingBucket = true;
     // Set the current bucket to editable
     bucket.editable = true;
+    bucket.saveMode = false;
   }
 
   onBucketTitleBlur(bucket: Bucket) {
     // If the editableBucketTitle is not empty, update the bucket title
     if (this.editableBucketTitle.trim() !== '') {
-      bucket.title = this.editableBucketTitle;
+      bucket.name = this.editableBucketTitle;
     }
     // Reset the editableBucketTitle and isEditingBucket
     this.editableBucketTitle = '';
@@ -102,7 +89,52 @@ export class HomeComponent implements OnInit {
     bucket.editable = false;
   }
 
-  // ...
+  onSaveBucketTitle(bucket: Bucket) {
+    if (this.editableBucketTitle.trim() !== '') {
+      const payload = {
+        name: this.editableBucketTitle,
+        id: bucket._id
+      }
+      console.log(this.editableBucketTitle)
+      this.taskService.updateBucket(payload).subscribe({
+        next: (response) => {
+          console.log("Bucket name successfully updated", response);
+          // Reset editable and save mode states
+          bucket.editable = false;
+          bucket.saveMode = false;
+        },
+        error: (error) => {
+          console.log("Error updating bucket name", error);
+        }
+      });
+    }
+  }
+
+
+
+  onDeleteBucket(bucket: Bucket) {
+    const confirmed = confirm(`Are you sure you want to delete ${bucket.name}?`);
+
+    if (confirmed) {
+      this.deleteBucket(bucket._id); // Assuming deleteBucket takes an id as an argument
+    }
+  }
+
+  // Define deleteBucket function in your component
+  deleteBucket(id: any) {
+    // Send a delete HTTP request to your API
+    // Example using Angular's HttpClient:
+    this.taskService.deleteBucket(id).subscribe({
+      next: (response) => {
+        console.log("Bucket succesfully deleted", response)
+        this.buckets = this.buckets.filter(bucket => bucket._id !== id);
+
+      },
+      error: (error) => {
+        console.log("Error occur", error)
+      }
+    })
+  }
 
 
 }
