@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: 'new-list', component: NewListComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
-    { path: '**', redirectTo: 'bucket', pathMatch: 'full' } // Redirect to home page for unknown routes  
+    { path: '**', redirectTo: 'login', pathMatch: 'full' } // Redirect to home page for unknown routes  
 ];
 
 @NgModule({

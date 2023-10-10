@@ -11,7 +11,7 @@
         Login to Continue
       </h5>
       <div class="flex-col justify-end">
-        <form  [formGroup]="form">
+        <form [formGroup]="form">
           <label for="email">EMAIL</label>
           <input type="email" id="email" name="email" placeholder=" " [formControlName]="'email'"><br />
 
@@ -22,12 +22,12 @@
 
       <br />
       <b>
-        <button class="login-button" routerLink="/home", (click)="login()">
+        <button class="login-button" routerLink="/bucket" (click)="login()">
           LOGIN
         </button>
       </b>
       <h6>
-        Don't have an account? <a href="signup" onclick="navigateTo()">Create a new account</a>
+        Don't have an account? <a routerLink="signup">Create a new account</a>
       </h6>
     </div>
   </div>

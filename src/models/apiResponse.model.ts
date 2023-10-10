@@ -1,5 +1,5 @@
 export interface Task {
-    userId: number;
+    userId: string;
     _id: string;
     name: string;
     status: 'none' | 'ongoing' | 'completed';
@@ -8,7 +8,7 @@ export interface Task {
 }
 
 export interface Bucket {
-    userId: number;
+    userId: string;
     _id: string;
     name: string;
     newName: string;
@@ -22,4 +22,17 @@ export interface ApiResponse<T> {
     status: string;
     message: string;
     data: T[];
+}
+export interface LoginResponse {
+    status: string;
+    message: string;
+    data: {
+        _id: string;
+        name: string;
+        email: string;
+        password: string;
+        buckets: string[]; // Assuming buckets is an array of strings
+        tasks: any[]; // Assuming tasks is an array of any type
+        __v: number;
+    };
 }

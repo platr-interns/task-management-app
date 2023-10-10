@@ -16,16 +16,15 @@ export class LoginComponent {
     private authService: AuthService,
     private formBuilder: FormBuilder
 
-    ) {this.form = this.formBuilder.group({ 
-      email: [null, [Validators.required]], 
-      password: [null, [Validators.required]], 
-        
-    }) 
+  ) {
+    this.form = this.formBuilder.group({
+      email: [null, [Validators.required]],
+      password: [null, [Validators.required]],
+
+    })
   }
-    public login(): void {
-      this.authService.login(this.form)
-      
-        this.router.navigate(['/signup']);
+  public login(): void {
+    this.authService.login(this.form)
   }
 
 }

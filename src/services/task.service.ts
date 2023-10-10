@@ -15,6 +15,10 @@ export class TaskService {
     // We want to send a web request to get all the bucket
     return this.webReqService.get<ApiResponse<Bucket>>('bucket/all');
   }
+  getUserBuckets(id: string): Observable<ApiResponse<Bucket>> {
+    // We want to send a web request to get all the bucket
+    return this.webReqService.get<ApiResponse<Bucket[]>>(`user/${id}bucket`);
+  }
   getOneBuckets() {
     // We want to send a web request to get all the bucket
     return this.webReqService.get('bucket/:id');
