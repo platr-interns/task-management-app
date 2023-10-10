@@ -1,26 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { UserDataService } from './user-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'localhost:3050';
+  private baseUrl = 'http://localhost:3050';
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private userDataService: UserDataService) { }
 
   public async login(form: FormGroup) {
-    const url = `${this.baseUrl}/auth/Login`;
+    const url = `${this.baseUrl}/auth/signin`;
     const login = {
       email: form.controls["email"].value,
       password: form.controls["password"].value,
-  }
-    
+    }
+
     return this.http.post(url, login).subscribe(
-      (Response)=>{console.log(Response);
+      (Response: any) => {
+        const userId = Response.data._id;
+        this.userDataService.setUserId(userId)
+        this.isAuthenticatedSubject.next(true);
+        console.log(Response);
       },
-      (error)=>{console.error(error);}
+      (error) => { console.error(error); }
     );
   }
 
@@ -30,12 +39,13 @@ export class AuthService {
       email: form.controls["email"].value,
       name: form.controls["name"].value,
       password: form.controls["password"].value,
-  }
-    
+    }
+
     return this.http.post(url, user).subscribe(
-      (Response)=>{console.log(Response);
+      (Response) => {
+        console.log(Response);
       },
-      (error)=>{console.error(error);}
+      (error) => { console.error(error); }
     );
   }
 

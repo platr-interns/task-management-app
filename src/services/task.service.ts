@@ -2,22 +2,33 @@ import { Injectable } from '@angular/core';
 import { WebRequestService } from './web-request.service';
 import { Observable } from 'rxjs';
 import { ApiResponse, Bucket, Task } from 'src/models/apiResponse.model';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { UserDataService } from './user-data.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
+  // buckets: Bucket[] = [];
+  // tasks: Task[] = [];
+  // selectedBucket?: string;
 
-  constructor(private webReqService: WebRequestService) { }
+  constructor(private webReqService: WebRequestService,
+    private route: ActivatedRoute,
+    private userDataService: UserDataService,
+    private authService: AuthService) { }
+
 
 
   getBuckets(): Observable<ApiResponse<Bucket>> {
     // We want to send a web request to get all the bucket
     return this.webReqService.get<ApiResponse<Bucket>>('bucket/all');
   }
-  getUserBuckets(id: string): Observable<ApiResponse<Bucket>> {
+  getUserBuckets(): Observable<ApiResponse<Bucket>> {
+    const user_id = this.userDataService.getUserId()
     // We want to send a web request to get all the bucket
-    return this.webReqService.get<ApiResponse<Bucket[]>>(`user/${id}bucket`);
+    return this.webReqService.get<ApiResponse<Bucket[]>>(`user/${user_id}/buckets`);
   }
   getOneBuckets() {
     // We want to send a web request to get all the bucket

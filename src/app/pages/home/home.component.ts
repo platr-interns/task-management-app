@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 // import { Task } from 'src/models/task.model';
 import { ApiResponse, Bucket, Task } from 'src/models/apiResponse.model';
 import { TaskService } from 'src/services/task.service';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -20,9 +21,20 @@ export class HomeComponent implements OnInit {
   uncompletedTasks: Task[] = [];
   selectedBucket?: string;
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private taskService: TaskService, private route: ActivatedRoute,
+    private router: Router, private authService: AuthService) { }
+
 
   ngOnInit() {
+    this.authService.isAuthenticated$.subscribe((authenticated) => {
+      if (authenticated) {
+        this.fetchData(); // Fetch data when authenticated
+      }
+    });
+  }
+
+
+  fetchData() {
     this.route.params.subscribe(
       (params: Params) => {
         // console.log(typeof (params))
@@ -42,7 +54,7 @@ export class HomeComponent implements OnInit {
       }
     )
 
-    this.taskService.getBuckets().subscribe({
+    this.taskService.getUserBuckets().subscribe({
       next: (response: ApiResponse<Bucket>) => {
         this.buckets = response.data;
         console.log(this.buckets)
@@ -52,7 +64,6 @@ export class HomeComponent implements OnInit {
       },
 
     });
-
   }
 
   addNewTask() {
@@ -61,7 +72,7 @@ export class HomeComponent implements OnInit {
       name: "New Task",
       hovered: false,
       editable: true,
-      userId: 0,
+      userId: '',
       _id: '1',
     };
     this.uncompletedTasks.push(newTask); // Assuming you want to add new tasks to the uncompletedTasks array
