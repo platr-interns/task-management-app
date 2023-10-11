@@ -53,7 +53,7 @@ export class TaskService {
     // We want to send a web request to get all the task in a bucket
     return this.webReqService.get<ApiResponse<Bucket>>(`bucket/${bucketid}/tasks`);
   }
-  createTask(taskInfo: { name: string },) {
+  createTask(taskInfo: { name: string, userId: string, bucketId: string, labels: string[] },) {
     // We want to send a web request to get all the task in a bucket
     return this.webReqService.post(`task/add`, { taskInfo });
   }

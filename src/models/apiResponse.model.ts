@@ -1,5 +1,6 @@
 export interface Task {
     userId: string;
+    bucketId: string;
     _id: string;
     name: string;
     status: 'none' | 'ongoing' | 'completed';

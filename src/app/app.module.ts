@@ -6,22 +6,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { NewListComponent } from './pages/newBucket/new-list.component';
+import { NewBucketComponent } from './pages/newBucket/new-bucket.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
+import { NewTaskComponent } from './pages/newTask/new-task.component';
 // Import other modules and components
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NewListComponent,
+    NewBucketComponent,
+    NewTaskComponent,
     SignupComponent,
     LoginComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule // Add the AppRoutingModule here

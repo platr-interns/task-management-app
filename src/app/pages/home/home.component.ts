@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiResponse, Bucket, Task } from 'src/models/apiResponse.model';
 import { TaskService } from 'src/services/task.service';
 import { AuthService } from 'src/services/auth.service';
+import { UserDataService } from 'src/services/user-data.service';
 
 @Component({
   selector: 'app-home',
@@ -20,9 +21,10 @@ export class HomeComponent implements OnInit {
   completedTasks: Task[] = [];
   uncompletedTasks: Task[] = [];
   selectedBucket?: string;
+  userId = this.userDataService.getUserId();
 
   constructor(private taskService: TaskService, private route: ActivatedRoute,
-    private router: Router, private authService: AuthService) { }
+    private router: Router, private authService: AuthService, private userDataService: UserDataService) { }
 
 
   ngOnInit() {
@@ -35,6 +37,17 @@ export class HomeComponent implements OnInit {
 
 
   fetchData() {
+    this.taskService.getUserBuckets().subscribe({
+      next: (response: ApiResponse<Bucket>) => {
+        this.buckets = response.data;
+        console.log(this.buckets)
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error("Error fetching buckets: ", error)
+      },
+
+    });
+
     this.route.params.subscribe(
       (params: Params) => {
         // console.log(typeof (params))
@@ -54,28 +67,12 @@ export class HomeComponent implements OnInit {
       }
     )
 
-    this.taskService.getUserBuckets().subscribe({
-      next: (response: ApiResponse<Bucket>) => {
-        this.buckets = response.data;
-        console.log(this.buckets)
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error("Error fetching buckets: ", error)
-      },
 
-    });
   }
 
   addNewTask() {
-    const newTask: Task = {
-      status: 'none',
-      name: "New Task",
-      hovered: false,
-      editable: true,
-      userId: '',
-      _id: '1',
-    };
-    this.uncompletedTasks.push(newTask); // Assuming you want to add new tasks to the uncompletedTasks array
+    const id = this.route.snapshot.params['id'];
+    this.router.navigate(['bucket', id, 'new-task']);
   }
 
   onEditBucketTitle(bucket: Bucket) {
