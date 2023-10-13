@@ -17,6 +17,22 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 90dvw;
     height: 100%;
+}
+
+.button-bucket {
+    background-color: #FF69B4;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #FF6C8C;
+    }
 }

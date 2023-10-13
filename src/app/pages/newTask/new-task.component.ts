@@ -33,6 +33,7 @@ export class NewTaskComponent implements OnInit {
         name: taskTitle,
         bucketId: this.bucketId,
         labels: [],
+        status: 'none',
         userId: this.userDataService.getUserId(),
       };
       console.log(taskInfo);

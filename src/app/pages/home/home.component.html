@@ -6,7 +6,8 @@
                 <div class="project-status p-4">
                     <ul class="project-list gap-4">
                         <li *ngFor="let bucket of buckets" class="project-link" (mouseenter)="bucket.hovered = true"
-                            (mouseleave)="bucket.hovered = false" [routerLink]="['/bucket', bucket._id]">
+                            (mouseleave)="bucket.hovered = false" [routerLink]="['/bucket', bucket._id]"
+                            [ngClass]="{'active': bucket.active}">
 
                             <span *ngIf="!bucket.editable">{{ bucket.name }}</span>
 
@@ -27,11 +28,10 @@
 
                     </ul>
                 </div>
-
-                <button class="button" routerLink="/new-bucket">
-                    + New Project
-                </button>
             </div>
+            <button class="button-bucket" routerLink="/new-bucket">
+                + New Project
+            </button>
 
         </div>
         <div class="task-container">
@@ -46,9 +46,16 @@
                         <li *ngFor="let task of tasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false">
                             <span *ngIf="!task.editable">{{ task.name }}</span>
-                            <input *ngIf="task.editable" [(ngModel)]="task.name" (blur)="task.editable = false">
-                            <i class="pen-icon fas fa-pencil-alt" (click)="task.editable = true"
-                                *ngIf="!task.editable"></i>
+
+                            <input *ngIf="task.editable" [(ngModel)]="editableTaskTitle"
+                                (blur)="onSaveTaskTitle(task); onTaskTitleBlur(task)"
+                                (keyup.enter)="onSaveTaskTitle(task)">
+
+                            <i class="pen-icon fas fa-pencil-alt" (click)="onEditTaskTitle(task)"
+                                *ngIf="!task.editable && !task.saveMode"></i>
+
+                            <i class="delete-icon fas fa-trash-alt" (click)="onDeleteTask(task)"
+                                *ngIf="task.hovered && !task.editable && !task.saveMode"></i>
                         </li>
                     </ul>
                 </div>
@@ -58,7 +65,7 @@
                         <li *ngFor="let task of completedTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false">
                             <span>{{ task.name }}</span>
-                            <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i>
+                            <!-- <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i> -->
                         </li>
                     </ul>
                 </div>
@@ -68,7 +75,7 @@
                         <li *ngFor="let task of uncompletedTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false">
                             <span>{{ task.name }}</span>
-                            <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i>
+                            <!-- <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i> -->
                         </li>
                     </ul>
 

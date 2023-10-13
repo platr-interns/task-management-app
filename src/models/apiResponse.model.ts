@@ -1,11 +1,12 @@
 export interface Task {
     userId: string;
     bucketId: string;
-    _id: string;
+    id: string;
     name: string;
     status: 'none' | 'ongoing' | 'completed';
     hovered: boolean;
     editable: boolean;
+    saveMode: boolean;
 }
 
 export interface Bucket {
@@ -17,6 +18,7 @@ export interface Bucket {
     hovered: boolean;
     editable: boolean;
     saveMode: boolean;
+    active: boolean;
 }
 
 export interface ApiResponse<T> {

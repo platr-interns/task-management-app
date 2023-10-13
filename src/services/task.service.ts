@@ -53,17 +53,17 @@ export class TaskService {
     // We want to send a web request to get all the task in a bucket
     return this.webReqService.get<ApiResponse<Bucket>>(`bucket/${bucketid}/tasks`);
   }
-  createTask(taskInfo: { name: string, userId: string, bucketId: string, labels: string[] },) {
+  createTask(taskInfo: { name: string, userId: string, bucketId: string, labels: string[], status: string }) {
     // We want to send a web request to get all the task in a bucket
-    return this.webReqService.post(`task/add`, { taskInfo });
+    return this.webReqService.post('task/add', taskInfo);
   }
-  updateTask(id: string, title: string) {
+  updateTask(payload: { id: string, name: string }) {
     // We want to send a web request to get all the task in a bucket
-    return this.webReqService.patch(`task/${id}`, { title });
+    return this.webReqService.patch(`task/update/${payload.id}`, payload);
   }
   deleteTask(id: string) {
     // We want to send a web request to delete a task
-    return this.webReqService.delete(`task/${id}`)
+    return this.webReqService.delete(`task/delete/${id}`)
   }
 
 }

@@ -17,10 +17,12 @@ export class HomeComponent implements OnInit {
   buckets: Bucket[] = [];
   editableBucketTitle: string = '';
   isEditingBucket: boolean = false;
+  selectedBucket?: string;
   tasks: Task[] = [];
   completedTasks: Task[] = [];
   uncompletedTasks: Task[] = [];
-  selectedBucket?: string;
+  editableTaskTitle: string = '';
+  isEditingTask: boolean = false;
   userId = this.userDataService.getUserId();
 
   constructor(private taskService: TaskService, private route: ActivatedRoute,
@@ -54,6 +56,9 @@ export class HomeComponent implements OnInit {
         console.log(params['id'])
         if (params['id']) {
           this.selectedBucket = params['id'];
+          this.buckets.forEach(bucket => {
+            bucket.active = bucket._id === params['id']
+          })
           this.taskService.getTask(params['id']).subscribe({
             next: (taskData: ApiResponse<Bucket>) => {
               const task = taskData.data[0].tasks;
@@ -136,6 +141,81 @@ export class HomeComponent implements OnInit {
       next: (response) => {
         console.log("Bucket succesfully deleted", response)
         this.buckets = this.buckets.filter(bucket => bucket._id !== id);
+
+      },
+      error: (error) => {
+        console.log("Error occur", error)
+      }
+    })
+  }
+
+
+  // Tasks functionality
+
+  onEditTaskTitle(task: Task) {
+    // Set the editableTaskTitle to the current Task title
+    this.editableTaskTitle = task.name;
+    // Set isEditingTask to true to indicate that editing is in progress
+    this.isEditingTask = true;
+    // Set the current task to editable
+    task.editable = true;
+    task.saveMode = false;
+  }
+
+  onTaskTitleBlur(task: Task) {
+    // If the editableTaskTitle is not empty, update the Task title
+    if (this.editableTaskTitle.trim() !== '') {
+      task.name = this.editableTaskTitle;
+    }
+    // Reset the editableTaskTitle and isEditingTask
+    this.editableTaskTitle = '';
+    this.isEditingTask = false;
+    // Set the current task to non-editable
+    task.editable = false;
+  }
+
+
+  onSaveTaskTitle(task: Task) {
+    if (this.editableTaskTitle.trim() !== '') {
+      const payload = {
+        name: this.editableTaskTitle,
+        id: task.id
+      }
+      console.log(this.editableTaskTitle)
+      this.taskService.updateTask(payload).subscribe({
+        next: (response) => {
+          console.log("Task name successfully updated", response);
+          // Reset editable and save mode states
+          task.editable = false;
+          task.saveMode = false;
+        },
+        error: (error) => {
+          console.log("Error updating Task name", error);
+        }
+      });
+    }
+  }
+
+
+
+  onDeleteTask(task: Task) {
+    const confirmed = confirm(`Are you sure you want to delete ${task.name}?`);
+
+    if (confirmed) {
+      console.log(task.id);
+
+      this.deleteTask(task.id); // Assuming deleteTask takes an id as an argument
+    }
+  }
+
+  // Define deleteTask function in your component
+  deleteTask(id: any) {
+    // Send a delete HTTP request to your API
+    // Example using Angular's HttpClient:
+    this.taskService.deleteTask(id).subscribe({
+      next: (response) => {
+        console.log("Bucket succesfully deleted", response)
+        this.tasks = this.tasks.filter(task => task.id !== id);
 
       },
       error: (error) => {
