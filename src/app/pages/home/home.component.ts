@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   editableTaskTitle: string = '';
   isEditingTask: boolean = false;
   userId = this.userDataService.getUserId();
+  userName = this.userDataService.getUserName();
+
 
   constructor(private taskService: TaskService, private route: ActivatedRoute,
     private router: Router, private authService: AuthService, private userDataService: UserDataService) { }
@@ -73,6 +75,12 @@ export class HomeComponent implements OnInit {
     )
 
 
+  }
+
+  logout() {
+    // Implement your logout logic here
+    // For example, navigate to the login page
+    this.router.navigate(['/login']);
   }
 
   addNewTask() {

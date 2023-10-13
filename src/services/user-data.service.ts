@@ -1,17 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserDataService {
-    private userId: string = '';
+    private userData: { id: string, name: string } = { id: '', name: '' };
 
+    setUserData(id: string, name: string) {
+        this.userData = { id, name };
+    }
 
-    setUserId(userId: string) {
-        this.userId = userId;
+    getUserData() {
+        return this.userData;
     }
 
     getUserId() {
-        return this.userId;
+        return this.userData.id;
+    }
+
+    getUserName() {
+        return this.userData.name;
     }
 }

@@ -6,6 +6,30 @@
     justify-content: center;
 }
 
+.user-info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+
+    h3 {
+        font-size: 2rem;
+        color: #ffff;
+    }
+
+    span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1rem;
+    }
+
+    .logout-icon {
+        font-size: 2rem;
+    }
+}
+
 .project-container {
     background-color: #fff;
     width: 30%;

@@ -24,8 +24,9 @@ export class AuthService {
 
     return this.http.post(url, login).subscribe(
       (Response: any) => {
+        const userName = Response.data.name
         const userId = Response.data._id;
-        this.userDataService.setUserId(userId)
+        this.userDataService.setUserData(userId, userName)
         this.isAuthenticatedSubject.next(true);
         console.log(Response);
       },
@@ -42,7 +43,11 @@ export class AuthService {
     }
 
     return this.http.post(url, user).subscribe(
-      (Response) => {
+      (Response: any) => {
+        const userName = Response.data.name
+        const userId = Response.data._id;
+        this.userDataService.setUserData(userId, userName)
+        this.isAuthenticatedSubject.next(true);
         console.log(Response);
       },
       (error) => { console.error(error); }
