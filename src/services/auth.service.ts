@@ -8,7 +8,8 @@ import { UserDataService } from './user-data.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3050';
+  // private baseUrl = 'http://localhost:3050';
+  private baseUrl = 'https://task-management-application-backend.vercel.app';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 

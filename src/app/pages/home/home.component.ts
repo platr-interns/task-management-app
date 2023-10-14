@@ -7,6 +7,15 @@ import { ApiResponse, Bucket, Task } from 'src/models/apiResponse.model';
 import { TaskService } from 'src/services/task.service';
 import { AuthService } from 'src/services/auth.service';
 import { UserDataService } from 'src/services/user-data.service';
+import {
+  CdkDragDrop,
+  CdkDrag,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-home',
@@ -19,8 +28,9 @@ export class HomeComponent implements OnInit {
   isEditingBucket: boolean = false;
   selectedBucket?: string;
   tasks: Task[] = [];
+  noneTasks: Task[] = [];
+  ongoingTasks: Task[] = [];
   completedTasks: Task[] = [];
-  uncompletedTasks: Task[] = [];
   editableTaskTitle: string = '';
   isEditingTask: boolean = false;
   userId = this.userDataService.getUserId();
@@ -65,6 +75,9 @@ export class HomeComponent implements OnInit {
             next: (taskData: ApiResponse<Bucket>) => {
               const task = taskData.data[0].tasks;
               this.tasks = task;
+              this.noneTasks = this.tasks.filter(task => task.status === 'none');
+              this.ongoingTasks = this.tasks.filter(task => task.status === 'ongoing');
+              this.completedTasks = this.tasks.filter(task => task.status === 'completed');
             },
             error: (error: HttpErrorResponse) => {
               console.error("Error fetching tasks: ", error)
@@ -230,6 +243,34 @@ export class HomeComponent implements OnInit {
         console.log("Error occur", error)
       }
     })
+  }
+
+  drop(event: CdkDragDrop<Task[]>, newStatus: 'none' | 'ongoing' | 'completed') {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      const movedTask: Task = event.container.data[event.currentIndex];
+
+      // Update the status property of the moved task
+      movedTask.status = newStatus;
+
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+
+      // Send an HTTP request to your backend to update the task's status
+      this.taskService.updateTaskStatus(movedTask).subscribe({
+        next: (response) => {
+          console.log("Task status successfully updated", response);
+        },
+        error: (error) => {
+          console.error("Error updating task status", error);
+        }
+      });
+    }
   }
 
 

@@ -57,6 +57,10 @@ export class TaskService {
     // We want to send a web request to get all the task in a bucket
     return this.webReqService.post('task/add', taskInfo);
   }
+  updateTaskStatus(payload: { id: string, status: string }) {
+    // We want to send a web request to get all the task in a bucket
+    return this.webReqService.patch(`task/update-status/${payload.id}`, payload);
+  }
   updateTask(payload: { id: string, name: string }) {
     // We want to send a web request to get all the task in a bucket
     return this.webReqService.patch(`task/update/${payload.id}`, payload);
