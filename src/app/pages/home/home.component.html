@@ -48,8 +48,8 @@
                         Tasks
                         <i class="add-icon fas fa-plus-circle" (click)="addNewTask()"></i>
                     </h4>
-                    <ul class="task-list" cdkDropList [cdkDropListData]="noneTasks"
-                        (cdkDropListDropped)="drop($event, 'none')">
+                    <ul id="noneTasks" class="task-list" cdkDropList [cdkDropListData]="noneTasks"
+                        (cdkDropListDropped)="drop($event)">
                         <li *ngFor="let task of noneTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag>
                             <span *ngIf="!task.editable">{{ task.name }}</span>
@@ -68,8 +68,8 @@
                 </div>
                 <div class="task-status">
                     <h4 class="status">Ongoing</h4>
-                    <ul class="task-list" cdkDropList [cdkDropListData]="ongoingTasks"
-                        (cdkDropListDropped)="drop($event, 'ongoing')">
+                    <ul id="ongoingTasks" class="task-list" cdkDropList [cdkDropListData]="ongoingTasks"
+                        (cdkDropListDropped)="drop($event)">
                         <li *ngFor="let task of ongoingTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag>
                             <span>{{ task.name }}</span>
@@ -79,8 +79,8 @@
                 </div>
                 <div class="task-status">
                     <h4 class="status">Completed</h4>
-                    <ul class="task-list" cdkDropList [cdkDropListData]="completedTasks"
-                        (cdkDropListDropped)="drop($event, 'completed')">
+                    <ul id="completedTasks" class="task-list" cdkDropList [cdkDropListData]="completedTasks"
+                        (cdkDropListDropped)="drop($event)">
                         <li *ngFor="let task of completedTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag>
                             <span>{{ task.name }}</span>

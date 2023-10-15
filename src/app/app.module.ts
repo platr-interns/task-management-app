@@ -11,6 +11,7 @@ import { NewBucketComponent } from './pages/newBucket/new-bucket.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NewTaskComponent } from './pages/newTask/new-task.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 // Import other modules and components
 
 @NgModule({
@@ -28,7 +29,8 @@ import { NewTaskComponent } from './pages/newTask/new-task.component';
     ReactiveFormsModule,
     DragDropModule,
     HttpClientModule,
-    AppRoutingModule // Add the AppRoutingModule here
+    AppRoutingModule,
+    NoopAnimationsModule // Add the AppRoutingModule here
     // Add other modules
   ],
   providers: [],

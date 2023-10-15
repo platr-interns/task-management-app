@@ -9,9 +9,6 @@ import { AuthService } from 'src/services/auth.service';
 import { UserDataService } from 'src/services/user-data.service';
 import {
   CdkDragDrop,
-  CdkDrag,
-  CdkDropList,
-  CdkDropListGroup,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
@@ -245,21 +242,53 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  drop(event: CdkDragDrop<Task[]>, newStatus: 'none' | 'ongoing' | 'completed') {
+  drop(event: CdkDragDrop<Task[]>) {
+    console.log('Drop function called');
+    console.log('Container ID:', event.container.id);
+    console.log('Container Data:', event.container.data);
+    console.log('Previous Index:', event.previousIndex);
+    console.log('Current Index:', event.currentIndex);
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       const movedTask: Task = event.container.data[event.currentIndex];
+
+      let newStatus: 'none' | 'ongoing' | 'completed';
+
+      switch (event.container.id) {
+        case 'noneTasks':
+          newStatus = 'none';
+          break;
+        case 'ongoingTasks':
+          newStatus = 'ongoing';
+          break;
+        case 'completedTasks':
+          newStatus = 'completed';
+          break;
+        default:
+          throw new Error(`Unknown target list ID: ${event.container.id}`);
+      }
 
       // Update the status property of the moved task
       movedTask.status = newStatus;
 
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+
+      if (event.container.data.length === 0) {
+        // If the target list is empty, add the moved task directly
+        event.container.data.push(movedTask);
+      } else {
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      }
+
 
       // Send an HTTP request to your backend to update the task's status
       this.taskService.updateTaskStatus(movedTask).subscribe({
