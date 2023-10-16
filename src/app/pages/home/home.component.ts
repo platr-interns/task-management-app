@@ -256,6 +256,7 @@ export class HomeComponent implements OnInit {
       );
     } else {
       const movedTask: Task = event.container.data[event.currentIndex];
+      console.log('Dropped task:', movedTask);
 
       let newStatus: 'none' | 'ongoing' | 'completed';
 

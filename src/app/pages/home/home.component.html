@@ -50,20 +50,22 @@
                     </h4>
                     <ul id="noneTasks" class="task-list" cdkDropList [cdkDropListData]="noneTasks"
                         (cdkDropListDropped)="drop($event)">
-                        <li *ngFor="let task of noneTasks" class="task-link" (mouseenter)="task.hovered = true"
+                        <div *ngFor="let task of noneTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag>
-                            <span *ngIf="!task.editable">{{ task.name }}</span>
+                            <div class="">
+                                <span *ngIf="!task.editable">{{ task.name }}</span>
 
-                            <input *ngIf="task.editable" [(ngModel)]="editableTaskTitle"
-                                (blur)="onSaveTaskTitle(task); onTaskTitleBlur(task)"
-                                (keyup.enter)="onSaveTaskTitle(task)">
+                                <input *ngIf="task.editable" [(ngModel)]="editableTaskTitle"
+                                    (blur)="onSaveTaskTitle(task); onTaskTitleBlur(task)"
+                                    (keyup.enter)="onSaveTaskTitle(task)">
 
-                            <i class="pen-icon fas fa-pencil-alt" (click)="onEditTaskTitle(task)"
-                                *ngIf="!task.editable && !task.saveMode"></i>
+                                <i class="pen-icon fas fa-pencil-alt" (click)="onEditTaskTitle(task)"
+                                    *ngIf="!task.editable && !task.saveMode"></i>
 
-                            <i class="delete-icon fas fa-trash-alt" (click)="onDeleteTask(task)"
-                                *ngIf="task.hovered && !task.editable && !task.saveMode"></i>
-                        </li>
+                                <i class="delete-icon fas fa-trash-alt" (click)="onDeleteTask(task)"
+                                    *ngIf="task.hovered && !task.editable && !task.saveMode"></i>
+                            </div>
+                        </div>
                     </ul>
                 </div>
                 <div class="task-status">
