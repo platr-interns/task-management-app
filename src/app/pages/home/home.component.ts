@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
     this.authService.isAuthenticated$.subscribe((authenticated) => {
       if (authenticated) {
         this.fetchData(); // Fetch data when authenticated
+
       }
     });
   }
@@ -71,10 +72,10 @@ export class HomeComponent implements OnInit {
           this.taskService.getTask(params['id']).subscribe({
             next: (taskData: ApiResponse<Bucket>) => {
               const task = taskData.data[0].tasks;
-              this.tasks = task;
-              this.noneTasks = this.tasks.filter(task => task.status === 'none');
-              this.ongoingTasks = this.tasks.filter(task => task.status === 'ongoing');
-              this.completedTasks = this.tasks.filter(task => task.status === 'completed');
+              // this.tasks = task;
+              this.noneTasks = task.filter(task => task.status === 'none');
+              this.ongoingTasks = task.filter(task => task.status === 'ongoing');
+              this.completedTasks = task.filter(task => task.status === 'completed');
             },
             error: (error: HttpErrorResponse) => {
               console.error("Error fetching tasks: ", error)
@@ -242,12 +243,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  drop(event: CdkDragDrop<Task[]>) {
-    console.log('Drop function called');
-    console.log('Container ID:', event.container.id);
-    console.log('Container Data:', event.container.data);
-    console.log('Previous Index:', event.previousIndex);
-    console.log('Current Index:', event.currentIndex);
+  drop(event: CdkDragDrop<Task[]>, newStatus: 'none' | 'ongoing' | 'completed') {
+    const movedTask: Task = event.item.data;
+    // ...
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -255,28 +253,10 @@ export class HomeComponent implements OnInit {
         event.currentIndex
       );
     } else {
-      const movedTask: Task = event.container.data[event.currentIndex];
-      console.log('Dropped task:', movedTask);
+      const newStatus = this.getStatusFromContainerId(event.container.id);
 
-      let newStatus: 'none' | 'ongoing' | 'completed';
-
-      switch (event.container.id) {
-        case 'noneTasks':
-          newStatus = 'none';
-          break;
-        case 'ongoingTasks':
-          newStatus = 'ongoing';
-          break;
-        case 'completedTasks':
-          newStatus = 'completed';
-          break;
-        default:
-          throw new Error(`Unknown target list ID: ${event.container.id}`);
-      }
-
-      // Update the status property of the moved task
-      movedTask.status = newStatus;
-
+      movedTask.status = newStatus; // Set the status of the moved task
+      console.log(movedTask)
 
       if (event.container.data.length === 0) {
         // If the target list is empty, add the moved task directly
@@ -290,7 +270,6 @@ export class HomeComponent implements OnInit {
         );
       }
 
-
       // Send an HTTP request to your backend to update the task's status
       this.taskService.updateTaskStatus(movedTask).subscribe({
         next: (response) => {
@@ -300,8 +279,21 @@ export class HomeComponent implements OnInit {
           console.error("Error updating task status", error);
         }
       });
+
     }
   }
 
+  private getStatusFromContainerId(containerId: string): 'none' | 'ongoing' | 'completed' {
+    switch (containerId) {
+      case 'noneTasks':
+        return 'none';
+      case 'ongoingTasks':
+        return 'ongoing';
+      case 'completedTasks':
+        return 'completed';
+      default:
+        throw new Error(`Unknown target list ID: ${containerId}`);
+    }
+  }
 
 }

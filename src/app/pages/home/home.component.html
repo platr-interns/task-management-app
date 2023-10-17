@@ -43,38 +43,39 @@
         <div class="task-container">
             <h1 class="title">TASK VIEW</h1>
             <div class="task-grid" cdkDropListGroup>
-                <div class="task-status">
+                <div class="task-status" id="noneTasks" cdkDropList [cdkDropListData]="noneTasks"
+                    (cdkDropListDropped)="drop($event, 'none')">
                     <h4 class="status">
                         Tasks
                         <i class="add-icon fas fa-plus-circle" (click)="addNewTask()"></i>
                     </h4>
-                    <ul id="noneTasks" class="task-list" cdkDropList [cdkDropListData]="noneTasks"
-                        (cdkDropListDropped)="drop($event)">
+                    <!-- <ul id="noneTasks" class="task-list" cdkDropList [cdkDropListData]="noneTasks"
+                        (cdkDropListDropped)="drop($event)"> -->
+                    <ul class="task-list">
                         <div *ngFor="let task of noneTasks" class="task-link" (mouseenter)="task.hovered = true"
-                            (mouseleave)="task.hovered = false" cdkDrag>
-                            <div class="">
-                                <span *ngIf="!task.editable">{{ task.name }}</span>
+                            (mouseleave)="task.hovered = false" cdkDrag [cdkDragData]='task'>
 
-                                <input *ngIf="task.editable" [(ngModel)]="editableTaskTitle"
-                                    (blur)="onSaveTaskTitle(task); onTaskTitleBlur(task)"
-                                    (keyup.enter)="onSaveTaskTitle(task)">
+                            <span *ngIf="!task.editable">{{ task.name }}, {{task.status}}</span>
 
-                                <i class="pen-icon fas fa-pencil-alt" (click)="onEditTaskTitle(task)"
-                                    *ngIf="!task.editable && !task.saveMode"></i>
+                            <input *ngIf="task.editable" [(ngModel)]="editableTaskTitle"
+                                (blur)="onSaveTaskTitle(task); onTaskTitleBlur(task)"
+                                (keyup.enter)="onSaveTaskTitle(task)">
 
-                                <i class="delete-icon fas fa-trash-alt" (click)="onDeleteTask(task)"
-                                    *ngIf="task.hovered && !task.editable && !task.saveMode"></i>
-                            </div>
+                            <i class="pen-icon fas fa-pencil-alt" (click)="onEditTaskTitle(task)"
+                                *ngIf="!task.editable && !task.saveMode"></i>
+
+                            <i class="delete-icon fas fa-trash-alt" (click)="onDeleteTask(task)"
+                                *ngIf="task.hovered && !task.editable && !task.saveMode"></i>
                         </div>
                     </ul>
                 </div>
                 <div class="task-status">
                     <h4 class="status">Ongoing</h4>
                     <ul id="ongoingTasks" class="task-list" cdkDropList [cdkDropListData]="ongoingTasks"
-                        (cdkDropListDropped)="drop($event)">
+                        (cdkDropListDropped)="drop($event, 'ongoing')">
                         <li *ngFor="let task of ongoingTasks" class="task-link" (mouseenter)="task.hovered = true"
-                            (mouseleave)="task.hovered = false" cdkDrag>
-                            <span>{{ task.name }}</span>
+                            (mouseleave)="task.hovered = false" cdkDrag [cdkDragData]='task'>
+                            <span>{{ task.name }}, {{task.status}}</span>
                             <!-- <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i> -->
                         </li>
                     </ul>
@@ -82,10 +83,10 @@
                 <div class="task-status">
                     <h4 class="status">Completed</h4>
                     <ul id="completedTasks" class="task-list" cdkDropList [cdkDropListData]="completedTasks"
-                        (cdkDropListDropped)="drop($event)">
+                        (cdkDropListDropped)="drop($event, 'completed')">
                         <li *ngFor="let task of completedTasks" class="task-link" (mouseenter)="task.hovered = true"
-                            (mouseleave)="task.hovered = false" cdkDrag>
-                            <span>{{ task.name }}</span>
+                            (mouseleave)="task.hovered = false" cdkDrag [cdkDragData]='task'>
+                            <span>{{ task.name }}, {{task.status}}</span>
                             <!-- <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i> -->
                         </li>
                     </ul>
