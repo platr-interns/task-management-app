@@ -55,7 +55,7 @@
                         <div *ngFor="let task of noneTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag [cdkDragData]='task'>
 
-                            <span *ngIf="!task.editable">{{ task.name }}, {{task.status}}</span>
+                            <span *ngIf="!task.editable">{{ task.name }}</span>
 
                             <input *ngIf="task.editable" [(ngModel)]="editableTaskTitle"
                                 (blur)="onSaveTaskTitle(task); onTaskTitleBlur(task)"
