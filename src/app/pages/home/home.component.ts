@@ -280,6 +280,8 @@ export class HomeComponent implements OnInit {
         }
       });
 
+      event.previousContainer.data.splice(event.previousIndex, 1);
+
     }
   }
 

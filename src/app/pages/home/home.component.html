@@ -75,7 +75,7 @@
                         (cdkDropListDropped)="drop($event, 'ongoing')">
                         <li *ngFor="let task of ongoingTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag [cdkDragData]='task'>
-                            <span>{{ task.name }}, {{task.status}}</span>
+                            <span>{{ task.name }}</span>
                             <!-- <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i> -->
                         </li>
                     </ul>
@@ -86,7 +86,7 @@
                         (cdkDropListDropped)="drop($event, 'completed')">
                         <li *ngFor="let task of completedTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag [cdkDragData]='task'>
-                            <span>{{ task.name }}, {{task.status}}</span>
+                            <span>{{ task.name }}</span>
                             <!-- <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i> -->
                         </li>
                     </ul>
