@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { UserDataService } from './user-data.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
 
-  constructor(private http: HttpClient, private userDataService: UserDataService) { }
+  constructor(private http: HttpClient, private userDataService: UserDataService, private router: Router) { }
 
   public async login(form: FormGroup) {
     const url = `${this.baseUrl}/auth/signin`;
@@ -29,6 +30,7 @@ export class AuthService {
         const userId = Response.data._id;
         this.userDataService.setUserData(userId, userName)
         this.isAuthenticatedSubject.next(true);
+        this.router.navigate(['/bucket']);
         console.log(Response);
       },
       (error) => { console.error(error); }
@@ -49,6 +51,7 @@ export class AuthService {
         const userId = Response.data._id;
         this.userDataService.setUserData(userId, userName)
         this.isAuthenticatedSubject.next(true);
+        this.router.navigate(['/bucket']);
         console.log(Response);
       },
       (error) => { console.error(error); }
