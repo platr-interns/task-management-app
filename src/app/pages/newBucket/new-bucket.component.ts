@@ -10,7 +10,6 @@ import { UserDataService } from 'src/services/user-data.service';
   styleUrls: ['./new-bucket.component.scss'],
 })
 export class NewBucketComponent implements OnInit {
-  // constructor(private router: Router, private apiService: ApiService) { }
   constructor(private router: Router, private taskService: TaskService, private userDataService: UserDataService) { }
   ngOnInit() { }
 

@@ -1,8 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-// import { Bucket } from 'src/models/bucket.model';
-// import { Task } from 'src/models/task.model';
 import { ApiResponse, Bucket, Task } from 'src/models/apiResponse.model';
 import { TaskService } from 'src/services/task.service';
 import { AuthService } from 'src/services/auth.service';
@@ -62,7 +60,6 @@ export class HomeComponent implements OnInit {
 
     this.route.params.subscribe(
       (params: Params) => {
-        // console.log(typeof (params))
         console.log(params['id'])
         if (params['id']) {
           this.selectedBucket = params['id'];
@@ -72,7 +69,6 @@ export class HomeComponent implements OnInit {
           this.taskService.getTask(params['id']).subscribe({
             next: (taskData: ApiResponse<Bucket>) => {
               const task = taskData.data[0].tasks;
-              // this.tasks = task;
               this.noneTasks = task.filter(task => task.status === 'none');
               this.ongoingTasks = task.filter(task => task.status === 'ongoing');
               this.completedTasks = task.filter(task => task.status === 'completed');
@@ -90,7 +86,7 @@ export class HomeComponent implements OnInit {
 
   logout() {
     // Implement your logout logic here
-    // For example, navigate to the login page
+    //navigate to the login page
     this.router.navigate(['/login']);
   }
 

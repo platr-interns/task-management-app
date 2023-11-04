@@ -11,7 +11,6 @@ import { UserDataService } from 'src/services/user-data.service';
 })
 export class NewTaskComponent implements OnInit {
   bucketId: string = "";
-  // constructor(private router: Router, private apiService: ApiService) { }
   constructor(private router: Router, private taskService: TaskService,
     private userDataService: UserDataService, private route: ActivatedRoute) {
     this.bucketId = this.route.snapshot.params['id'];
