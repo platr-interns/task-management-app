@@ -26,10 +26,6 @@
 
                             <i class="delete-icon fas fa-trash-alt" (click)="onDeleteBucket(bucket)"
                                 *ngIf="bucket.hovered && !bucket.editable && !bucket.saveMode"></i>
-
-                            <!-- <i class="save-icon fas fa-save" (click)="onSaveBucketTitle(bucket)"
-                                *ngIf="bucket.editable && !bucket.saveMode"></i> -->
-
                         </li>
 
                     </ul>
@@ -49,8 +45,6 @@
                         Tasks
                         <i class="add-icon fas fa-plus-circle" (click)="addNewTask()"></i>
                     </h4>
-                    <!-- <ul id="noneTasks" class="task-list" cdkDropList [cdkDropListData]="noneTasks"
-                        (cdkDropListDropped)="drop($event)"> -->
                     <ul class="task-list">
                         <div *ngFor="let task of noneTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag [cdkDragData]='task'>
@@ -76,7 +70,6 @@
                         <li *ngFor="let task of ongoingTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag [cdkDragData]='task'>
                             <span>{{ task.name }}</span>
-                            <!-- <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i> -->
                         </li>
                     </ul>
                 </div>
@@ -87,7 +80,6 @@
                         <li *ngFor="let task of completedTasks" class="task-link" (mouseenter)="task.hovered = true"
                             (mouseleave)="task.hovered = false" cdkDrag [cdkDragData]='task'>
                             <span>{{ task.name }}</span>
-                            <!-- <i class="pen-icon fas fa-pencil-alt" *ngIf="task.hovered"></i> -->
                         </li>
                     </ul>
 
